@@ -152,7 +152,7 @@ router.delete('/:id', async (req, res) => {
 
     deleteImage(product.image);
 
-    await book.deleteOne();
+    await product.deleteOne();
 
     return res.json({
       message: 'Product deleted successfully'
