@@ -9,6 +9,10 @@ const transactionSchema = new mongoose.Schema(
                     required: true,
                     ref: 'Product'
                 },
+                productName: {
+                    type: String,
+                    required: true,
+                },
                 quantity: {
                     type: Number,
                     required: true,
@@ -31,7 +35,7 @@ const transactionSchema = new mongoose.Schema(
         }
     },
     {
-        timeseries: true
+        timestamps: true
     }
 );
 

@@ -5,6 +5,9 @@ const dotenv = require("dotenv");
 const path = require("path");
 
 const authRoutes = require("./routes/authRoutes");
+const productRoutes = require("./routes/productRoutes");
+const categoryRoutes = require("./routes/categoryRoutes");
+const transactionRoutes = require("./routes/transactionRoutes");
 const { error } = require("console");
 
 dotenv.config();
@@ -28,10 +31,10 @@ app.get("/", (req, res) => {
 });
 
 // place the middleware
-app.use("api/auth", authRoutes);
-app.use("api/products", productRoutes);
-app.use("api/category", categoryRoutes);
-app.use("api/transaction", transactionRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/category", categoryRoutes);
+app.use("/api/transaction", transactionRoutes);
 
 // connect to MongoDB
 mongoose
@@ -40,7 +43,7 @@ mongoose
     console.log("MongoDB connected");
 
     app.listen(process.env.PORT, () => {
-      console.log(`Server running on http://${process.env.PORT}`);
+      console.log(`Server running on http://localhost:${process.env.PORT}`);
     });
   })
   .catch((error) => {

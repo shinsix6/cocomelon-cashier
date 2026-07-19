@@ -25,7 +25,7 @@ const deleteImage = (imagePath) => {
 router.use(authMiddleware);
 
 // Get all products
-routes.get("/", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const products = await Product.find()
       .populate('user', 'category')
@@ -43,7 +43,7 @@ routes.get("/", async (req, res) => {
 });
 
 // create product
-router.post('/', upload.single(image), async (req, res) => {
+router.post('/', upload.single('image'), async (req, res) => {
   try {
     const { productName, price, category, stock } = req.body;
 
@@ -54,7 +54,7 @@ router.post('/', upload.single(image), async (req, res) => {
     }
 
     // image checker
-    const iamgePath = req.file ? `upload/books/${req.file.filename}` : null;
+    const imagePath = req.file ? `uploads/products/${req.file.filename}` : null;
 
     const product = await Product.create({
       productName,
@@ -62,7 +62,7 @@ router.post('/', upload.single(image), async (req, res) => {
       category,
       stock,
       image: imagePath,
-      // user: req.user._id
+      user: req.user._id
     });
 
     return res.status(201).json({
@@ -117,11 +117,11 @@ router.put('/:id', upload.single('image'), async (req, res) => {
 
     if (req.file) {
       deleteImage(book.image);
-      imagePath = `upload/products/${req.file.filename}`;
+      imagePath = `uploads/products/${req.file.filename}`;
     }
 
     product.productName = productName || product.productName;
-    product.pice = price || product.price;
+    product.price = price || product.price;
     product.category = category || product.category;
     product.stock = stock || product.stock;
 

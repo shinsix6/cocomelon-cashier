@@ -1,9 +1,12 @@
-const express = require('mongoose');
+const express = require('express');
 
 const Category = require('../models/Category');
 const authMiddleware = require('../middleware/authMiddleware');
 
 const router = express.Router();
+
+// need login to access
+router.use(authMiddleware);
 
 // get all category
 router.get('/', async (req, res) => {
@@ -103,3 +106,5 @@ router.delete('/:id', async (req, res) => {
         });
     }
 });
+
+module.exports = router;
