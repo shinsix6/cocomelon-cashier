@@ -12,7 +12,7 @@ router.use(authMiddleware);
 router.get('/', async (req, res) => {
     try {
         const category = await Category.find()
-            .populate('user', 'productName')
+            .populate('user', 'name email')
             .sort({ createdAt: -1 });
 
         return res.json({

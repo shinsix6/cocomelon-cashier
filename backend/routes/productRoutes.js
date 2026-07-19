@@ -28,7 +28,7 @@ router.use(authMiddleware);
 router.get("/", async (req, res) => {
   try {
     const products = await Product.find()
-      .populate('user', 'category')
+      .populate('user', 'name email')
       .sort({ createdAt: -1 }); // sort with descending order
 
     return res.json({

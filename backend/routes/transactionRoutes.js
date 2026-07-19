@@ -5,6 +5,10 @@ const Product = require('../models/Product')
 
 const router = express.Router();
 
+// need login to access
+router.use(authMiddleware);
+
+// transaction logic
 router.post("/", async (req, res) => {
     try {
         const { user, products } = req.body;
@@ -77,5 +81,23 @@ router.post("/", async (req, res) => {
         });
     }
 });
+
+// gett all transactions
+router.get("/getall", async (req, res) => {
+    try {
+        const transaction = await Transaction.find()
+            .populate('user', 'name email')
+            .sort({ createdAt: -1 });
+
+        return res.json({
+            data: transaction,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Server Error",
+            error: error.message,
+        });
+    }
+})
 
 module.exports = router;
