@@ -1,2 +1,0 @@
-mkdir -p uploads/products
-touch uploads/products/.gitkeep

@@ -1,6 +1,6 @@
 backend/node_modules/
 backend/.env
 # Ignore all files in the uploads directory
-uploads/products/*
+backend/uploads/products/*
 # Except for the .gitkeep file
-!uploads/products/.gitkeep
+backend/!uploads/products/.gitkeep
