@@ -3,4 +3,4 @@ backend/.env
 # Ignore all files in the uploads directory
 backend/uploads/products/*
 # Except for the .gitkeep file
-backend/!uploads/products/.gitkeep
+!backend/uploads/products/.gitkeep
