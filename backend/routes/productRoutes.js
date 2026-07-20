@@ -116,7 +116,7 @@ router.put('/:id', upload.single('image'), async (req, res) => {
     let imagePath = product.image;
 
     if (req.file) {
-      deleteImage(book.image);
+      deleteImage(product.image);
       imagePath = `uploads/products/${req.file.filename}`;
     }
 
