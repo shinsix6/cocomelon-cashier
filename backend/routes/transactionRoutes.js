@@ -1,5 +1,5 @@
 const express = require('express');
-const authMiddleware = require('../middleware/authMiddleware');
+const { authMiddleware, adminMiddleware } = require("../middleware/authMiddleware");
 const Transaction = require('../models/Transaction');
 const Product = require('../models/Product')
 
@@ -81,6 +81,9 @@ router.post("/", async (req, res) => {
         });
     }
 });
+
+// admin only
+router.use(adminMiddleware);
 
 // gett all transactions
 router.get("/getall", async (req, res) => {

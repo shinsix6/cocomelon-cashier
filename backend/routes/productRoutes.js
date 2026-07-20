@@ -6,7 +6,7 @@ const path = require("path");
 // import product model
 const Product = require("../models/Product");
 // use middleware
-const authMiddleware = require("../middleware/authMiddleware.js");
+const { authMiddleware, adminMiddleware } = require("../middleware/authMiddleware");
 const upload = require("../middleware/uploadMiddleware.js");
 
 // activate router
@@ -42,6 +42,32 @@ router.get("/", async (req, res) => {
   }
 });
 
+// Get detail product
+router.get('/:id', async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id)
+      .populate('user', 'category');
+
+    if (!product) {
+      return res.status(404).json({
+        message: 'Product not found'
+      });
+
+      return res.json({
+        data: product
+      });
+    }
+  } catch (error) {
+      return res.status(500).json({
+        message: "Server error",
+        error: error.message
+      });
+  }
+});
+
+// admin only
+router.use(adminMiddleware);
+
 // create product
 router.post('/', upload.single('image'), async (req, res) => {
   try {
@@ -74,29 +100,6 @@ router.post('/', upload.single('image'), async (req, res) => {
       message: 'Server error',
       error: error.message
     });
-  }
-});
-
-// Get detail product
-router.get('/:id', async (req, res) => {
-  try {
-    const product = await Product.findById(req.params.id)
-      .populate('user', 'category');
-
-    if (!product) {
-      return res.status(404).json({
-        message: 'Product not found'
-      });
-
-      return res.json({
-        data: product
-      });
-    }
-  } catch (error) {
-      return res.status(500).json({
-        message: "Server error",
-        error: error.message
-      });
   }
 });
 

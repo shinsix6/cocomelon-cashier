@@ -1,7 +1,7 @@
 const express = require('express');
 
 const Category = require('../models/Category');
-const authMiddleware = require('../middleware/authMiddleware');
+const { authMiddleware, adminMiddleware } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
@@ -25,6 +25,9 @@ router.get('/', async (req, res) => {
         });
     }
 });
+
+// admin only
+router.use(adminMiddleware);
 
 // create category
 router.post('/', async (req, res) => {
