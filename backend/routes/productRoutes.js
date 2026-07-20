@@ -72,7 +72,7 @@ router.post('/', upload.single('image'), async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       message: 'Server error',
-      erorr: error.message
+      error: error.message
     });
   }
 });
@@ -124,6 +124,7 @@ router.put('/:id', upload.single('image'), async (req, res) => {
     product.price = price || product.price;
     product.category = category || product.category;
     product.stock = stock || product.stock;
+    product.image = imagePath;
 
     await product.save();
 
